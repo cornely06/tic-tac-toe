@@ -1,4 +1,4 @@
-var Gameboard = (function() {
+const Gameboard = (() => {
     let piece = 'X';
 
     const switchPiece = function() {
@@ -18,6 +18,9 @@ var Gameboard = (function() {
 
     const reset = function() {
         let gameboard = document.querySelector('#gameboard')
+        while (gameboard.firstChild) {
+            gameboard.removeChild(gameboard.lastChild);
+        }
         for (let i = 1; i <= 9; i++) {
             let cell = document.createElement('div');
             cell.dataset.index = i;
@@ -28,6 +31,11 @@ var Gameboard = (function() {
         piece = 'X';
     };
     return { reset };
+})();
+
+const displayController = (() => {
+    let newGame = document.querySelector('#newgame');
+    newGame.addEventListener('mousedown', Gameboard.reset);
 })();
 
 Gameboard.reset();
