@@ -4,4 +4,23 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  
+}
+
+#gameboard {
+    display: flex;
+    flex-wrap: wrap;
+    width: 270px;
+    height: 270px;
+    cursor: pointer;
+}
+
+.cell {
+    width: 90px;
+    height: 90px;
+    border: 1px solid black;
+}
+
+.cell:hover {
+    background-color: lightgrey;
 }
