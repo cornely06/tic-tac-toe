@@ -1,4 +1,4 @@
-const displayBoard = document.querySelector('#gameboard');
+
 
 const gameboard = (() => {
     const board = ["", "", "",
@@ -8,7 +8,8 @@ const gameboard = (() => {
 })();
 
 const displayController = (() => {
-
+    const displayBoard = document.querySelector('#gameboard');
+    const display = document.querySelector('#display');
     const createBoard = () => {
         gameboard.board.forEach(addCells);
     }
@@ -22,7 +23,7 @@ const displayController = (() => {
         displayBoard.appendChild(displayCell);
     }
 
-    return { createBoard };
+    return { displayBoard, display, createBoard };
 })();
 
 const gameController = (() => {
@@ -52,7 +53,9 @@ const gameController = (() => {
 
     const reset = () => {
         gameboard.board = gameboard.board.map(toEmpty => toEmpty = "")
-        while (displayBoard.firstChild) {displayBoard.firstChild.remove()}
+        while (displayController.displayBoard.firstChild) {
+            displayController.displayBoard.firstChild.remove()
+        }
         piece = 'X';
         displayController.createBoard();
         isOver = false;
@@ -73,9 +76,12 @@ const gameController = (() => {
             gameboard.board[testCase[1]] == gameboard.board[testCase[2]] &&
             gameboard.board[testCase[0]] !== "") {
                 isOver = true;
-                console.log(`player ${piece} wins!`)
+                displayController.display.textContent = `player ${piece} wins!`
             }
-        if (movesMade == 9) {isOver = true; console.log('tie')}
+        if (movesMade == 9) {
+            isOver = true;
+            displayController.display.textContent = 'game is tied!';
+        }
     })
 
     newGame.addEventListener('mousedown', reset);
