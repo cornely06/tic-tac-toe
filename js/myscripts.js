@@ -28,6 +28,7 @@ const displayController = (() => {
 const gameController = (() => {
     let piece = 'X';
     let isOver = false;
+    let movesMade = 0;
     const newGame = document.querySelector('#newgame');
 
     const switchPiece = function() {
@@ -42,10 +43,11 @@ const gameController = (() => {
         if (!thisCell.textContent) {
         thisCell.textContent = piece;
         gameboard.board[thisCell.dataset.index] = thisCell.textContent;
-        switchPiece();
+        movesMade++;
         }
-        else {console.log('error: occupied space')}
+        else {console.log('error: occupied space'); return;}
         testing();
+        switchPiece();
     }
 
     const reset = () => {
@@ -66,12 +68,14 @@ const gameController = (() => {
                  [6, 7, 8]];
 
     const testing = () => testArr.forEach(testCase => {
-    if (gameboard.board[testCase[0]] == gameboard.board[testCase[1]] &&
-        gameboard.board[testCase[0]] == gameboard.board[testCase[2]] &&
-        gameboard.board[testCase[1]] == gameboard.board[testCase[2]] &&
-        gameboard.board[testCase[0]] !== "") {
-            isOver = true;
-        }
+        if (gameboard.board[testCase[0]] == gameboard.board[testCase[1]] &&
+            gameboard.board[testCase[0]] == gameboard.board[testCase[2]] &&
+            gameboard.board[testCase[1]] == gameboard.board[testCase[2]] &&
+            gameboard.board[testCase[0]] !== "") {
+                isOver = true;
+                console.log(`player ${piece} wins!`)
+            }
+        if (movesMade == 9) {isOver = true; console.log('tie')}
     })
 
     newGame.addEventListener('mousedown', reset);
