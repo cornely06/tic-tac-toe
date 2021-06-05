@@ -1,3 +1,5 @@
+const displayBoard = document.querySelector('#gameboard');
+
 const gameboard = (() => {
     const board = ["", "", "",
                    "", "", "",
@@ -6,21 +8,9 @@ const gameboard = (() => {
 })();
 
 const displayController = (() => {
-    const displayBoard = document.querySelector('#gameboard');
-    const newGame = document.querySelector('#newgame');
 
     const createBoard = () => {
         gameboard.board.forEach(addCells);
-    }
-
-    const makeMove = (event) => {
-        let thisCell = event.target;
-        if (!thisCell.textContent) {
-        thisCell.textContent = gameController.piece;
-        gameboard.board[thisCell.dataset.index] = thisCell.textContent;
-        gameController.switchPiece();
-        }
-        else {console.log('error: occupied space')}
     }
 
     const addCells = (cell, index) => {
@@ -28,32 +18,65 @@ const displayController = (() => {
         displayCell.classList.add('cell');
         displayCell.dataset.index = index;
         displayCell.textContent = cell;
-        displayCell.addEventListener('mousedown', makeMove);
+        displayCell.addEventListener('mousedown', gameController.makeMove);
         displayBoard.appendChild(displayCell);
     }
-
-    const reset = () => {
-        gameboard.board = gameboard.board.map(cell => cell = "")
-        while (displayBoard.firstChild) {displayBoard.firstChild.remove()}
-        gameController.piece = 'X';
-        createBoard();
-    }
-
-    newGame.addEventListener('mousedown', reset);
 
     return { createBoard };
 })();
 
 const gameController = (() => {
     let piece = 'X';
+    let isOver = false;
+    const newGame = document.querySelector('#newgame');
 
     const switchPiece = function() {
-        if (gameController.piece == 'X') {
-            gameController.piece = 'O';
-        } else {gameController.piece = 'X'}
+        if (piece == 'X') {
+            piece = 'O';
+        } else {piece = 'X'}
     }
 
-    return { piece, switchPiece};
+    const makeMove = (event) => {
+        if (isOver) {return;}
+        let thisCell = event.target;
+        if (!thisCell.textContent) {
+        thisCell.textContent = piece;
+        gameboard.board[thisCell.dataset.index] = thisCell.textContent;
+        switchPiece();
+        }
+        else {console.log('error: occupied space')}
+        testing();
+    }
+
+    const reset = () => {
+        gameboard.board = gameboard.board.map(toEmpty => toEmpty = "")
+        while (displayBoard.firstChild) {displayBoard.firstChild.remove()}
+        piece = 'X';
+        displayController.createBoard();
+        isOver = false;
+    }
+
+    const testArr = [[0, 1, 2],
+                 [0, 3, 6],
+                 [0, 4, 8],
+                 [1, 4, 7],
+                 [2, 4, 6],
+                 [2, 5, 8],
+                 [3, 4, 5],
+                 [6, 7, 8]];
+
+    const testing = () => testArr.forEach(testCase => {
+    if (gameboard.board[testCase[0]] == gameboard.board[testCase[1]] &&
+        gameboard.board[testCase[0]] == gameboard.board[testCase[2]] &&
+        gameboard.board[testCase[1]] == gameboard.board[testCase[2]] &&
+        gameboard.board[testCase[0]] !== "") {
+            isOver = true;
+        }
+    })
+
+    newGame.addEventListener('mousedown', reset);
+
+    return { makeMove };
 })();
 
 displayController.createBoard();
