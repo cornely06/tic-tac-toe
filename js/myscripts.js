@@ -1,5 +1,7 @@
-const Gameboard = (() => {
+const displayController = (() => {
     let piece = 'X';
+
+    const newGame = document.querySelector('#newgame');
 
     const switchPiece = function() {
         if (piece == 'X') {
@@ -30,12 +32,9 @@ const Gameboard = (() => {
         }
         piece = 'X';
     };
+
+    newGame.addEventListener('mousedown', reset);
     return { reset };
 })();
 
-const displayController = (() => {
-    let newGame = document.querySelector('#newgame');
-    newGame.addEventListener('mousedown', Gameboard.reset);
-})();
-
-Gameboard.reset();
+displayController.reset();
