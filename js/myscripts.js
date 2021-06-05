@@ -33,9 +33,11 @@ const gameController = (() => {
     const newGame = document.querySelector('#newgame');
 
     const switchPiece = function() {
+        if (isOver) {return;}
         if (piece == 'X') {
             piece = 'O';
         } else {piece = 'X'}
+        displayController.display.textContent = `player ${piece}'s turn`
     }
 
     const makeMove = (event) => {
