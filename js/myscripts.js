@@ -1,40 +1,48 @@
-const displayController = (() => {
-    let piece = 'X';
+const gameboard = (() => {
+    const board = ["", "", "",
+                   "", "", "",
+                   "", "", ""];
+    return { board };
+})();
 
-    const newGame = document.querySelector('#newgame');
+const displayController = (() => {
+    const displayBoard = document.querySelector('#gameboard');
+    const reset = () => {
+        gameboard.board.forEach(addCells);
+    }
+
+    const makeMove = (event) => {
+        let thisCell = event.target;
+        if (!thisCell.textContent) {
+        thisCell.textContent = gameController.piece;
+        gameboard.board[thisCell.dataset.index] = thisCell.textContent;
+        gameController.switchPiece();
+        }
+        else {console.log('error: occupied space')}
+    }
+
+    const addCells = (cell, index) => {
+        let displayCell = document.createElement('div');
+        displayCell.classList.add('cell');
+        displayCell.dataset.index = index;
+        displayCell.textContent = cell;
+        displayCell.addEventListener('mousedown', makeMove);
+        displayBoard.appendChild(displayCell);
+    }
+
+    return { reset };
+})();
+
+const gameController = (() => {
+    var piece = 'X';
 
     const switchPiece = function() {
-        if (piece == 'X') {
-            piece = 'O';
-        } else {piece = 'X'}
+        if (gameController.piece == 'X') {
+            gameController.piece = 'O';
+        } else {gameController.piece = 'X'}
     }
 
-    const setChoice = function(e) {
-        if (!e.target.textContent) {
-            e.target.textContent = piece;
-        } else {
-            console.log('error: occupied space');
-        }
-        switchPiece();
-    }
-
-    const reset = function() {
-        let gameboard = document.querySelector('#gameboard')
-        while (gameboard.firstChild) {
-            gameboard.removeChild(gameboard.lastChild);
-        }
-        for (let i = 1; i <= 9; i++) {
-            let cell = document.createElement('div');
-            cell.dataset.index = i;
-            cell.classList.add('cell');
-            cell.addEventListener('mousedown', setChoice);
-            gameboard.appendChild(cell);
-        }
-        piece = 'X';
-    };
-
-    newGame.addEventListener('mousedown', reset);
-    return { reset };
+    return { piece, switchPiece};
 })();
 
 displayController.reset();
