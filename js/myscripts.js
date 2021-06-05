@@ -7,7 +7,9 @@ const gameboard = (() => {
 
 const displayController = (() => {
     const displayBoard = document.querySelector('#gameboard');
-    const reset = () => {
+    const newGame = document.querySelector('#newgame');
+
+    const createBoard = () => {
         gameboard.board.forEach(addCells);
     }
 
@@ -30,11 +32,20 @@ const displayController = (() => {
         displayBoard.appendChild(displayCell);
     }
 
-    return { reset };
+    const reset = () => {
+        gameboard.board = gameboard.board.map(cell => cell = "")
+        while (displayBoard.firstChild) {displayBoard.firstChild.remove()}
+        gameController.piece = 'X';
+        createBoard();
+    }
+
+    newGame.addEventListener('mousedown', reset);
+
+    return { createBoard };
 })();
 
 const gameController = (() => {
-    var piece = 'X';
+    let piece = 'X';
 
     const switchPiece = function() {
         if (gameController.piece == 'X') {
@@ -45,4 +56,4 @@ const gameController = (() => {
     return { piece, switchPiece};
 })();
 
-displayController.reset();
+displayController.createBoard();
