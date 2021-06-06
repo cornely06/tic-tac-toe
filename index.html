@@ -4,11 +4,22 @@
         <link href="css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div id="displaycontroller">
-            <div id="display">player X's turn</div>
+        <div id="title">
+            <h1>Tic Tac Toe</h1>
+        </div> 
+        <div id="display">player X's turn</div>
+        <div id="game-and-players">
+            <div class="player-selection">
+                <input type="text" placeholder="player 1">
+            </div>
+            <div id="gameboard"></div>
+            <div class="player-selection">
+                <input type="text" placeholder="player 2">
+            </div>
+        </div>
+        <div id="game-buttons">
             <button id="newgame">New Game</button>
         </div>
-        <div id="gameboard"></div>
         <script src="js/myscripts.js"></script>      
     </body>
 </html>

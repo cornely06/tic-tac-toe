@@ -4,7 +4,6 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  
 }
 
 #gameboard {
@@ -13,12 +12,15 @@
     width: 270px;
     height: 270px;
     cursor: pointer;
+    background-color: lightgrey;
 }
 
 #display {
     width: 100%;
     height: 100px;
     font-size: 3em;
+    line-height: 100px;
+    background-color: lightcoral;
 }
 
 .cell {
@@ -28,5 +30,29 @@
 }
 
 .cell:hover {
-    background-color: lightgrey;
+    background-color: white;
+}
+
+#game-and-players {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-selection input {
+    text-align: center;
+    width: 150px;
+    margin: 50px;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+body {
+    text-align: center;
+    background-color: lightblue;
+}
+
+#title {
+    height: 150px;
+    line-height: 150px;
 }
