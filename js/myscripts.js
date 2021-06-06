@@ -84,6 +84,7 @@ const gameController = (() => {
                 document.querySelector(`.cell[data-index="${testCase[1]}"]`).classList.add('winner');
                 document.querySelector(`.cell[data-index="${testCase[2]}"]`).classList.add('winner');
                 displayController.display.textContent = `player ${piece} wins!`
+                movesMade = 0;
             }
         if (movesMade == 9) {
             isOver = true;

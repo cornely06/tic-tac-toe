@@ -28,9 +28,13 @@
 }
 
 .cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 90px;
     height: 90px;
     border: 1px solid black;
+    font-size: 4em;
 }
 
 .cell:hover {
@@ -86,5 +90,10 @@ body {
 }
 
 .winner {
-    text-shadow: 1px 1px 1px red;
+    color: rgb(81, 210, 233);
+    text-shadow:
+    -2px -2px 2px black,
+    2px 2px 2px black,
+    2px -2px 2px black,
+    -2px 2px 2px black;
 }
