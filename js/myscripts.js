@@ -61,6 +61,8 @@ const gameController = (() => {
         piece = 'X';
         displayController.createBoard();
         isOver = false;
+        movesMade = 0;
+        displayController.display.textContent = `player ${piece}'s turn`
     }
 
     const testArr = [[0, 1, 2],
@@ -78,6 +80,9 @@ const gameController = (() => {
             gameboard.board[testCase[1]] == gameboard.board[testCase[2]] &&
             gameboard.board[testCase[0]] !== "") {
                 isOver = true;
+                document.querySelector(`.cell[data-index="${testCase[0]}"]`).classList.add('winner');
+                document.querySelector(`.cell[data-index="${testCase[1]}"]`).classList.add('winner');
+                document.querySelector(`.cell[data-index="${testCase[2]}"]`).classList.add('winner');
                 displayController.display.textContent = `player ${piece} wins!`
             }
         if (movesMade == 9) {
