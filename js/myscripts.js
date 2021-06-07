@@ -28,14 +28,14 @@ const displayController = (() => {
     const updateDisplay = () => {
         if (gameController.piece == 'X') {
             if (player1.value) {
-                display.textContent = `${player1.value}'s turn`
+                display.textContent = `${player1.value}'s turn`;
             }
-            else {display.textContent = `${player1.placeholder}'s turn`}
+            else {display.textContent = `${player1.placeholder}'s turn`;}
         } else if (gameController.piece == 'O') {
             if (player2.value) {
-                display.textContent = `${player2.value}'s turn`
+                display.textContent = `${player2.value}'s turn`;
             }
-            else {display.textContent = `${player2.placeholder}'s turn`}
+            else {display.textContent = `${player2.placeholder}'s turn`;}
         }
     }
 
@@ -53,7 +53,11 @@ const displayController = (() => {
         }
     }
 
-    return { displayBoard, display, createBoard, updateDisplay, showWinner };
+    const firstMove = () => {
+        display.textContent = (() => {return player1.value ? `${player1.value}'s turn` : `${player1.placeholder}'s turn`})();
+    }
+
+    return { displayBoard, display, createBoard, updateDisplay, showWinner, firstMove };
 })();
 
 const gameController = (() => {
@@ -74,7 +78,7 @@ const gameController = (() => {
         if (isOver) {return;}
         let thisCell = event.target;
         if (!thisCell.textContent) {
-        thisCell.textContent = piece;
+        thisCell.textContent = gameController.piece;
         gameboard.board[thisCell.dataset.index] = thisCell.textContent;
         movesMade++;
         }
@@ -92,7 +96,7 @@ const gameController = (() => {
         displayController.createBoard();
         isOver = false;
         movesMade = 0;
-        displayController.display.textContent = `player ${piece}'s turn`
+        displayController.firstMove();
     }
 
     const testArr = [[0, 1, 2],
