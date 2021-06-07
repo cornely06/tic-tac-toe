@@ -10,6 +10,8 @@ const gameboard = (() => {
 const displayController = (() => {
     const displayBoard = document.querySelector('#gameboard');
     const display = document.querySelector('#display');
+    const player1 = document.querySelector('#player1');
+    const player2 = document.querySelector('#player2');
     const createBoard = () => {
         gameboard.board.forEach(addCells);
     }
@@ -23,7 +25,35 @@ const displayController = (() => {
         displayBoard.appendChild(displayCell);
     }
 
-    return { displayBoard, display, createBoard };
+    const updateDisplay = () => {
+        if (gameController.piece == 'X') {
+            if (player1.value) {
+                display.textContent = `${player1.value}'s turn`
+            }
+            else {display.textContent = `${player1.placeholder}'s turn`}
+        } else if (gameController.piece == 'O') {
+            if (player2.value) {
+                display.textContent = `${player2.value}'s turn`
+            }
+            else {display.textContent = `${player2.placeholder}'s turn`}
+        }
+    }
+
+    const showWinner = () => {
+        if (gameController.piece == 'X') {
+            if (player1.value) {
+                display.textContent = `${player1.value} wins!`
+            }
+            else {display.textContent = `${player1.placeholder} wins!`}
+        } else if (gameController.piece == 'O') {
+            if (player2.value) {
+                display.textContent = `${player2.value} wins!`
+            }
+            else {display.textContent = `${player2.placeholder} wins!`}
+        }
+    }
+
+    return { displayBoard, display, createBoard, updateDisplay, showWinner };
 })();
 
 const gameController = (() => {
@@ -34,10 +64,10 @@ const gameController = (() => {
 
     const switchPiece = function() {
         if (isOver) {return;}
-        if (piece == 'X') {
-            piece = 'O';
-        } else {piece = 'X'}
-        displayController.display.textContent = `player ${piece}'s turn`
+        if (gameController.piece == 'X') {
+            gameController.piece = 'O';
+        } else {gameController.piece = 'X'}
+        displayController.updateDisplay();
     }
 
     const makeMove = (event) => {
@@ -83,7 +113,7 @@ const gameController = (() => {
                 document.querySelector(`.cell[data-index="${testCase[0]}"]`).classList.add('winner');
                 document.querySelector(`.cell[data-index="${testCase[1]}"]`).classList.add('winner');
                 document.querySelector(`.cell[data-index="${testCase[2]}"]`).classList.add('winner');
-                displayController.display.textContent = `player ${piece} wins!`
+                displayController.showWinner();
                 movesMade = 0;
             }
         if (movesMade == 9) {
@@ -94,7 +124,7 @@ const gameController = (() => {
 
     newGame.addEventListener('mousedown', reset);
 
-    return { makeMove };
+    return { piece, makeMove };
 })();
 
 displayController.createBoard();
