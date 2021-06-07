@@ -25,6 +25,20 @@ const displayController = (() => {
         displayBoard.appendChild(displayCell);
     }
 
+    player1.addEventListener('input', () => {
+        if (gameController.piece == 'X') {
+            if (player1.value) {display.textContent = player1.value;}
+            else {display.textContent = player1.placeholder;}
+        }
+    })
+
+    player2.addEventListener('input', () => {
+        if (gameController.piece == 'O') {
+            if (player2.value) {display.textContent = player2.value;}
+            else {display.textContent = player2.placeholder;}
+        }
+    })
+
     const updateDisplay = () => {
         if (gameController.piece == 'X') {
             if (player1.value) {
