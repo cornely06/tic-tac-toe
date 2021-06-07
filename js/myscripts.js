@@ -92,7 +92,7 @@ const gameController = (() => {
         while (displayController.displayBoard.firstChild) {
             displayController.displayBoard.firstChild.remove()
         }
-        piece = 'X';
+        gameController.piece = 'X';
         displayController.createBoard();
         isOver = false;
         movesMade = 0;
