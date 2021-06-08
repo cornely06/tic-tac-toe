@@ -133,10 +133,12 @@ const gameController = (() => {
                 document.querySelector(`.cell[data-index="${testCase[2]}"]`).classList.add('winner');
                 displayController.showWinner();
                 movesMade = 0;
+                gameController.piece = '';
             }
         if (movesMade == 9) {
             isOver = true;
             displayController.display.textContent = 'game is tied!';
+            gameController.piece = '';
         }
     })
 

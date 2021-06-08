@@ -89,6 +89,11 @@ body {
     border-color: rgb(81, 210, 233);
 }
 
+#newgame:active {
+    background-color: rgb(81, 210, 233);
+    border-color: black;
+}
+
 .winner {
     color: rgb(81, 210, 233);
     text-shadow:
