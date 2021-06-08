@@ -12,6 +12,7 @@ const displayController = (() => {
     const display = document.querySelector('#display');
     const player1 = document.querySelector('#player1');
     const player2 = document.querySelector('#player2');
+
     const createBoard = () => {
         gameboard.board.forEach(addCells);
     }
@@ -27,14 +28,14 @@ const displayController = (() => {
 
     player1.addEventListener('input', () => {
         if (gameController.piece == 'X') {
-            if (player1.value) {display.textContent = player1.value;}
+            if (player1.value) {display.textContent = `${player1.value}'s turn`;}
             else {display.textContent = player1.placeholder;}
         }
     })
 
     player2.addEventListener('input', () => {
         if (gameController.piece == 'O') {
-            if (player2.value) {display.textContent = player2.value;}
+            if (player2.value) {display.textContent = `${player2.value}'s turn`;}
             else {display.textContent = player2.placeholder;}
         }
     })
