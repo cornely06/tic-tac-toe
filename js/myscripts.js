@@ -29,14 +29,14 @@ const displayController = (() => {
     player1.addEventListener('input', () => {
         if (gameController.piece == 'X') {
             if (player1.value) {display.textContent = `${player1.value}'s turn`;}
-            else {display.textContent = player1.placeholder;}
+            else {display.textContent = `${player1.placeholder}'s turn`;}
         }
     })
 
     player2.addEventListener('input', () => {
         if (gameController.piece == 'O') {
             if (player2.value) {display.textContent = `${player2.value}'s turn`;}
-            else {display.textContent = player2.placeholder;}
+            else {display.textContent = `${player2.placeholder}'s turn`;}
         }
     })
 

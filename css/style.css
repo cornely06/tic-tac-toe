@@ -6,6 +6,10 @@
   margin: 0;
 }
 
+* {
+    font-family: 'Bebas Neue', cursive;
+  }
+
 #gameboard {
     display: flex;
     flex-wrap: wrap;
