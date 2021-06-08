@@ -122,7 +122,7 @@ const gameController = (() => {
                  [3, 4, 5],
                  [6, 7, 8]];
 
-    const testing = () => testArr.forEach(testCase => {
+    const testing = () => {testArr.forEach(testCase => {
         if (gameboard.board[testCase[0]] == gameboard.board[testCase[1]] &&
             gameboard.board[testCase[0]] == gameboard.board[testCase[2]] &&
             gameboard.board[testCase[1]] == gameboard.board[testCase[2]] &&
@@ -135,12 +135,11 @@ const gameController = (() => {
                 movesMade = 0;
                 gameController.piece = '';
             }
-        if (movesMade == 9) {
-            isOver = true;
-            displayController.display.textContent = 'game is tied!';
-            gameController.piece = '';
-        }
-    })
+    }); if (movesMade == 9) {
+        isOver = true;
+        displayController.display.textContent = 'game is tied!';
+        gameController.piece = '';
+    }}
 
     newGame.addEventListener('mousedown', reset);
 
